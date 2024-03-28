@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.example.library.services.BookService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -24,4 +25,12 @@ public class BookController {
     {
         return bookService.getAllBooks();
     }
+
+    @GetMapping(value ="/save/{name}/{author}")
+    @ResponseBody
+    public Book saveBook(@PathVariable String name, @PathVariable String author)
+    {
+        return bookService.saveBook(name, author);
+    }
+
 }

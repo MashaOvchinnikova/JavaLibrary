@@ -1,6 +1,8 @@
 package com.example.library.services;
 
 import com.example.library.models.Book;
+import com.example.library.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -8,14 +10,26 @@ import java.util.List;
 
 @Component
 public class BookService {
-    protected List<Book> books = new ArrayList<>();
+   private final BookRepository bookRepository;
 
-    public BookService () {
-        books.add(new Book("Дубровский", "А.С. Пушкин"));
-        books.add(new Book("Джейн Эйр", "Шарлотта Бронте"));
+    @Autowired
+    public BookService(BookRepository bookRepository)
+    {
+        this.bookRepository = bookRepository;
     }
 
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks()
+    {
+        List<Book> books = new ArrayList<>();
+        bookRepository.findAll().forEach(books::add);
         return books;
     }
+
+    public Book saveBook(String name, String author)
+    {
+        Book book = new Book(name,  author);
+        bookRepository.save(book);
+        return book;
+    }
+
 }
