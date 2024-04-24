@@ -13,11 +13,13 @@ public class Book {
     private Long id;
     public String author;
     public String name;
+    public BookGenre genre;
 
-    public Book (String name, String author)
+    public Book (String name, String author, BookGenre genre)
     {
         this.name = name;
         this.author = author;
+        this.genre = genre;
     }
     public Book () {}
 }
